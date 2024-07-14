@@ -2,16 +2,24 @@ package com.scalaTraining
 
 object firstAssignment {
   case class Transaction(items: String, quantity: Int, pricePerUnit: Double)
-
-  def computeTotalCost(transactions: List[Transaction], discountThreshold: Double, discountRate: Double): Double = {
-    val totalCost = transactions.map(t => t.quantity * t.pricePerUnit).sum
-    val discount = if (totalCost > discountThreshold) totalCost * discountRate else 0.0
-    val finalTotalCost = totalCost - discount
-    println(f"Total cost before discount: $$${totalCost}%.2f")
-    println(f"Applied discount: $$${discount}%.2f")
-    finalTotalCost
+  def totalCostAfterDiscount(totalCost: Double, discountThreshold: Double, discountRate: Double): Double = {
+    if (totalCost >= discountThreshold)
+      totalCost - (totalCost * discountRate)
+    else
+      totalCost
   }
 
+  def totalCostCalculator(transactions: List[Transaction]): Double = {
+    transactions.map(t => t.quantity * t.pricePerUnit).sum
+  }
+
+  def printReciept(transactions: List[Transaction], discountThreshold: Double, discountRate: Double): Unit = {
+    val totalCost: Double = totalCostCalculator(transactions)
+    val totalCostPostDisc : Double  = totalCostAfterDiscount(totalCost, discountThreshold, discountRate)
+    println(f"Total cost before discount: $$${totalCost}%.2f")
+    println(f"Applied discount: $$${totalCost-totalCostPostDisc}%.2f")
+    println(s"Final total cost: $$${totalCostPostDisc}")
+  }
 
   def main(args: Array[String]): Unit = {
 
@@ -24,8 +32,8 @@ object firstAssignment {
 
     val discountThreshold = 10.0
     val discountRate = 0.1
-    val finalCost = computeTotalCost(transactions, discountThreshold, discountRate)
-    println(s"Final total cost: $$${finalCost}")
+    printReciept(transactions, discountThreshold, discountRate)
+//    println(s"Final total cost: $$${finalCost}")
 
   }
 
