@@ -33,7 +33,6 @@ object firstAssignment {
     val discountThreshold = 10.0
     val discountRate = 0.1
     printReciept(transactions, discountThreshold, discountRate)
-//    println(s"Final total cost: $$${finalCost}")
 
   }
 
