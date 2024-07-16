@@ -55,3 +55,34 @@ Use-case suggestion
   - Implement a test class which extends the `AnyFunSuite` coming from the scalatest package (`class FirstAssignmentTest extends AnyFunSuite`)
   - Write some unit tests for your modular units
 - Push your solution to the GitHub Repo
+
+# Session 3 (2024-07-16)
+
+## What we did
+
+- GitHub Pull Request
+  - rebase branch to main branch (checkout main, pull, checkout feature-branch, git rebase main)
+  - set upstream branch
+- Review code
+  - Add Scala ide plugin (create file `project/plugins.sbt`) to enable package prefix path
+  - Change Scala version to 2.13 (instead of 3.x)
+- IntelliJ shortcuts
+  - Double Shift: Search everywhere (open file)
+  - Cmd+1: Focus project explorer
+  - F6: Refactor move
+  - Shift+F6: Refactor rename
+  - Cmd+Shift+I: Reload sbt
+  - Cmd+N (in project explorer): New file
+  - Cmd+Shift+L: Reformat file
+  - Ctrl+Alt+O: Optimize imports
+- Run unit tests with Scala 2.12
+  - Change JDK version from 1.8 to 11
+- Scala access modifiers:
+  - `private`: same class, companion module
+  - `protected`: same class, companion module or subclasses
+  - `private[package]`: same class, companion module, subclasses or same package
+
+## Assignment
+
+- Commit your refactored code and create a pull request
+- Complete the second assignment in the `assignments` directory
