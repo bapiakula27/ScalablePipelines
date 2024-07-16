@@ -1,7 +1,9 @@
-package com.scalaTraining
+package de.bapiakula.sparkscalacourse
 
-object firstAssignment {
+object FirstAssignment {
+
   case class Transaction(items: String, quantity: Int, pricePerUnit: Double)
+
   def totalCostAfterDiscount(totalCost: Double, discountThreshold: Double, discountRate: Double): Double = {
     if (totalCost >= discountThreshold)
       totalCost - (totalCost * discountRate)
@@ -13,11 +15,11 @@ object firstAssignment {
     transactions.map(t => t.quantity * t.pricePerUnit).sum
   }
 
-  def printReciept(transactions: List[Transaction], discountThreshold: Double, discountRate: Double): Unit = {
+  private def printReceipt(transactions: List[Transaction], discountThreshold: Double, discountRate: Double): Unit = {
     val totalCost: Double = totalCostCalculator(transactions)
-    val totalCostPostDisc : Double  = totalCostAfterDiscount(totalCost, discountThreshold, discountRate)
+    val totalCostPostDisc: Double = totalCostAfterDiscount(totalCost, discountThreshold, discountRate)
     println(f"Total cost before discount: $$${totalCost}%.2f")
-    println(f"Applied discount: $$${totalCost-totalCostPostDisc}%.2f")
+    println(f"Applied discount: $$${totalCost - totalCostPostDisc}%.2f")
     println(s"Final total cost: $$${totalCostPostDisc}")
   }
 
@@ -32,7 +34,7 @@ object firstAssignment {
 
     val discountThreshold = 10.0
     val discountRate = 0.1
-    printReciept(transactions, discountThreshold, discountRate)
+    printReceipt(transactions, discountThreshold, discountRate)
 
   }
 

@@ -1,11 +1,11 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "3.3.3"
+ThisBuild / scalaVersion := "2.13.13"
 
 lazy val root = (project in file("."))
   .settings(
     name := "ScalablePipelines",
-//    idePackagePrefix := Some("de.bapiakula.sparkscalacourse") -- this is complaining, we can chat in our session.
+    idePackagePrefix := Some("de.bapiakula.sparkscalacourse")
   )
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.17" % Test
 
