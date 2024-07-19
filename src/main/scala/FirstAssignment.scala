@@ -2,41 +2,40 @@ package de.bapiakula.sparkscalacourse
 
 object FirstAssignment {
 
-  case class Transaction(items: String, category: String, quantity: Int, pricePerUnit: Double)
+  case class Transaction(items: String, category: String, quantity: Int, pricePerUnit: Double) {
+    val totalPrice = quantity * pricePerUnit
+  }
 
   private[sparkscalacourse] def totalCostPerCategory(transactions: List[Transaction]): Map[String, Double] = {
     transactions
       .groupBy(t => t.category)
       .map { case (category, items) =>
-        val total = items.map(t => t.quantity * t.pricePerUnit).sum
+        val total = items.map(t => t.totalPrice).sum
         (category, total)
       }
   }
 
-  private[sparkscalacourse] def TotalDiscountPerCategory(totalPerCategory: Map[String, Double], discountThreshold: Double, discountRate: Double): Map[String, Double] = {
+  private[sparkscalacourse] def totalDiscountPerCategory(totalPerCategory: Map[String, Double], discountThreshold: Double, discountRate: Double): Map[String, Double] = {
     totalPerCategory.map { case (category, total) =>
-      if (total >= discountThreshold)
-        (category, total - (total * discountRate))
-      else
-        (category, total)
-
+      val discountedTotal = applyDiscount(total, discountThreshold, discountRate)
+      (category, discountedTotal)
     }
   }
 
-  def totalCostAfterDiscount(totalCost: Double, discountThreshold: Double, discountRate: Double): Double = {
+  private[sparkscalacourse] def applyDiscount(totalCost: Double, discountThreshold: Double, discountRate: Double): Double = {
     if (totalCost >= discountThreshold)
       totalCost - (totalCost * discountRate)
     else
       totalCost
   }
 
-  def totalCostCalculator(transactions: List[Transaction]): Double = {
-    transactions.map(t => t.quantity * t.pricePerUnit).sum
+  def calculateTotalCount(transactions: List[Transaction]): Double = {
+    transactions.map(t => t.totalPrice).sum
   }
 
   private def printReceipt(transactions: List[Transaction], discountThreshold: Double, discountRate: Double): Unit = {
     val totalCostPerCat: Map[String, Double] = totalCostPerCategory(transactions)
-    val totalCostPostDiscPerCat: Map[String, Double] = TotalDiscountPerCategory(totalCostPerCat, discountThreshold, discountRate)
+    val totalCostPostDiscPerCat: Map[String, Double] = totalDiscountPerCategory(totalCostPerCat, discountThreshold, discountRate)
     println("\n Total cost per category: ")
     totalCostPerCat.foreach(pair =>
       println(f"Category: ${pair._1}, Total: $$${pair._2}%.2f"))

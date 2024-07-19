@@ -8,4 +8,3 @@ lazy val root = (project in file("."))
     idePackagePrefix := Some("de.bapiakula.sparkscalacourse")
   )
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.17" % Test
-

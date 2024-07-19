@@ -38,8 +38,8 @@ class FirstAssignmentTest extends AnyFunSuite {
     output.size should equal(2)
     output should contain("Fruit" -> 10.6)
     output should contain("Personal Care" -> 9.0)
-
   }
+
   test("Applied Discount Per Category"){
     val totalCostPerCategory =  List("Fruit" -> 10.6, "Personal Care" -> 9.0).toMap
     val discountThreshold = 10.0
@@ -48,7 +48,6 @@ class FirstAssignmentTest extends AnyFunSuite {
     output.size should equal(2)
     output should contain("Fruit" -> 9.54)
     output should contain("Personal Care" -> 9.0)
-
   }
 
 }
