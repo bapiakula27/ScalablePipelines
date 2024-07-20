@@ -86,3 +86,27 @@ Use-case suggestion
 
 - Commit your refactored code and create a pull request
 - Complete the second assignment in the `assignments` directory
+
+# Session 4 (2024-07-19)
+
+- Review code
+- Scala features: functional programming, implicits, higher order functions
+  - Explore `Seq` class in the documentation
+  - Explore generic types, higher-order functions
+  - Talk about immutability as a fundamental concept of functional programming
+  - Explore `IterableOnce` class and some of its methods (`dropWhile`, `reduce`)
+- Reading Scala docs
+
+## Assignment
+
+- Don't use ChatGPT or StackOverflow, only the [official Scala documentation](https://www.scala-lang.org/api/2.13.14/scala/collection/Seq.html)
+- Implement a simple example using the `foldLeft` method in the `Seq` class
+- Read the documentation provided and implement the following example
+  - Combine all transactions into a single aggregated transaction 
+  - Build the total spend of all transactions 
+  - Find the total spend and item count per category
+  - Implement a unit test
+```
+case class CategoryStats(totalAmount: Double, totalItems: Int)
+case class AggregatedTransaction(totalPrice: Double, categoryStats: Map[String, CategoryStats]`]
+```
