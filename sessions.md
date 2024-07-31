@@ -110,3 +110,30 @@ Use-case suggestion
 case class CategoryStats(totalAmount: Double, totalItems: Int)
 case class AggregatedTransaction(totalPrice: Double, categoryStats: Map[String, CategoryStats]`]
 ```
+
+# Session 5 (2024-07-26)
+
+## What we did
+
+- Scala tutorial
+  - higher-order functions
+  - lambda functions
+  - mutability vs. immutability
+  - classes and objects
+  - reading method signatures (generics, type inference)
+  - implicit parameters and the implicit context 
+
+# Session 6 (2024-07-30)
+
+## What we did
+
+- Merge PRs and clean up branches in GitHub repo 
+- Dataset vs. DataFrame
+- Case classes as schema definitions
+- Creating DataFrames and Datasets using the `SparkSession`
+- Explore documentation (IDE & browser); sql packages, data types, `SparkSession`, `DataFrameReader`, instantiating schemas
+- Implicit and explicit encoders
+
+## Assignment
+
+- Complete assignments 1 & 2 from `assignments/retail-project`

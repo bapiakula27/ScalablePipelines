@@ -3,7 +3,7 @@ package de.bapiakula.sparkscalacourse
 object FirstAssignment {
 
   case class Transaction(items: String, category: String, quantity: Int, pricePerUnit: Double) {
-    val totalPrice = quantity * pricePerUnit
+    val totalPrice: Double = quantity * pricePerUnit
   }
 
   private[sparkscalacourse] def totalCostPerCategory(transactions: List[Transaction]): Map[String, Double] = {
