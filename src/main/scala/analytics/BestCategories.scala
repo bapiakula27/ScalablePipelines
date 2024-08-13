@@ -1,35 +1,41 @@
 package de.bapiakula.sparkscalacourse
 package analytics
 
-import de.bapiakula.sparkscalacourse.model.Purchase
-import de.bapiakula.sparkscalacourse.model.Product
-import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.{DataFrame, Dataset}
-import org.apache.spark.sql.functions._
+import model.{Product, Purchase, RankCategory}
 
-import java.time.LocalDateTime
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.{DataFrame, Dataset, Encoder, Encoders}
 
 object BestCategories {
-  case class ResultDS(category: String, rnk: Int, totalOrderVolume: Double, purchaseFrequency: Int, smallerExistence: LocalDateTime, name: String)
 
-  def calculate(purchaseDs: Dataset[Purchase], productDs: Dataset[Product]): DataFrame = {
+  def calculate(purchaseDs: Dataset[Purchase], productDs: Dataset[Product]): Dataset[RankCategory] = {
     val joinCondition = purchaseDs.col("productId") === productDs.col("productId")
     val prodPurchasedCategory = purchaseDs.join(productDs, joinCondition, "inner")
+    val categoryAggregates = calculateCategoryAggregates(purchaseDs, productDs, prodPurchasedCategory)
+    val rankCategories = rnkCategories(categoryAggregates)
+    // Construct Encoder
+    implicit val rankCategoryEncoder: Encoder[RankCategory] = Encoders.product[RankCategory]
 
+    rankCategories.as[RankCategory]
+  }
+
+  private def rnkCategories(categoryAggregates: DataFrame) = {
     val windowSpec = Window.orderBy(
       col("totalOrderVolume").desc,
       col("purchaseFrequency"),
-      col("smallerExistence"),
-      col("AlphanumericalCatName"))
+      col("minInsertTimestamp"),
+      col("minCategoryName"))
 
-    prodPurchasedCategory.groupBy(productDs("productId"),productDs("category"),productDs("name"))
-      .agg(
-        sum(purchaseDs("pricePerUnit") * purchaseDs("quantity")).as("totalOrderVolume"),
-        count(purchaseDs("PurchaseId")).as("purchaseFrequency"),
-        min(productDs("insertTimestamp")).as("smallerExistence"),
-        min(productDs("category")).as("AlphanumericalCatName"))
-      .withColumn("rnk", dense_rank() over (windowSpec))
-      .where(col("rnk") === 1).select("category", "rnk", "totalOrderVolume", "purchaseFrequency", "smallerExistence", "name")
+    categoryAggregates.withColumn("rank", dense_rank() over (windowSpec))
   }
 
+  private def calculateCategoryAggregates(purchaseDs: Dataset[Purchase], productDs: Dataset[Product], prodPurchasedCategory: DataFrame) = {
+    prodPurchasedCategory.groupBy(productDs("category"))
+      .agg(
+        sum(purchaseDs("pricePerUnit") * purchaseDs("quantity")).as("totalOrderVolume"),
+        sum(purchaseDs("quantity")).as("purchaseFrequency"), // this needs to be total quantity
+        max(productDs("insertTimestamp")).as("minInsertTimestamp"), // max
+        min(productDs("category")).as("minCategoryName"))
+  }
 }

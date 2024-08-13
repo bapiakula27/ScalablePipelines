@@ -3,7 +3,7 @@ package analytics
 
 import model.{Product, Purchase}
 
-import de.bapiakula.sparkscalacourse.analytics.BestCategories.ResultDS
+import de.bapiakula.sparkscalacourse.analytics.BestCategories.RankCategory
 import org.apache.spark.sql.{Row, SparkSession}
 import org.scalatest.funsuite.AnyFunSuite
 //import org.scalatest.matchers.must.Matchers.equal
