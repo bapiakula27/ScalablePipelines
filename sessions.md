@@ -137,3 +137,27 @@ case class AggregatedTransaction(totalPrice: Double, categoryStats: Map[String, 
 ## Assignment
 
 - Complete assignments 1 & 2 from `assignments/retail-project`
+
+# Session 7 (2024-08-08)
+
+## What we did
+
+- Code review of the assignment solution
+- Clarify the assignment statement (should produce a DataFrame containing a ranking, rather than a single category)
+- Introduce a new result case class
+
+# Session 8 (2024-08-13)
+
+## What we did
+
+- Talk about clean code, testing, good software engineering practices
+- Start with pipeline design (coding demo)
+  - 3-layered data layout: `raw`, `cln`, `drv`
+  - Traits, abstract classes, mix-ins and inheritance
+  - Implement a `DataSource` and `ClnDataSource`
+  - Implement a `PipelineStep` and `BestCategoriesPipelineStep`
+  - Write pseudocode for the `run` method of `BestCategoriesPipelineStep`
+
+## Assignments
+
+- Work on assignment 3 of the retail project
