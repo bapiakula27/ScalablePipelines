@@ -1,4 +1,5 @@
 package de.bapiakula.sparkscalacourse
+package scalaTutorial
 
 object FirstAssignment {
 
