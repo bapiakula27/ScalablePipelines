@@ -20,7 +20,7 @@ class AppConfig(val configFile:String = "application.conf") {
 
     val dataStoreRawDir:String =  config.getString("dataStore.directories.raw")
     val dataStoreDrvDir:String =  config.getString("dataStore.directories.drv")
-    val dataStoreclnDir:String =  config.getString("dataStore.directories.cln")
+    val dataStoreClnDir:String =  config.getString("dataStore.directories.cln")
 
     object Steps{
         object Prepare{

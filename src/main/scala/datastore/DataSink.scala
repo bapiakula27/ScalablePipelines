@@ -17,7 +17,7 @@ trait DrvDataSink extends DataSink {
   }
 }
 
-trait DrvDataSink extends DataSink {
+trait ClnDataSink extends DataSink {
   override def write(object_name: DataFrame, path: String)(implicit ctx:AppContext): Unit = {
     val path = s"${ctx.config.dataStoreDrvDir}/$object_name"
     object_name.write.format("parquet").save(path)
